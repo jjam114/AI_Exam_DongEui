@@ -1,0 +1,7 @@
+# 파이선 필요 코드
+
+터미널 선택 후 터미널에서 진행
+
+pip install scikit-learn
+pip install numpy
+pip install matplotlib
