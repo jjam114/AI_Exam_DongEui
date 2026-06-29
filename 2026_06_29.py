@@ -27,9 +27,10 @@ kn.score(test_input, test_target)
 
 kn.predict([[25.4, 242.0]])
 
+#일반 리스트보다 더 성능이 좋은 넘파이 쓰는 방법
 import numpy as np
 
-input_arr = np.array(fish_data)
+input_arr = np.array(fish_data) # 기존에 만들어진 데이터를 넘파이 배열로 변환
 target_arr = np.array(fish_target)
 
 np.random.seed(42) #임의의 숫자를 어떠한 방식으로 출제 할 것이냐
@@ -37,3 +38,24 @@ index = np.arange(49) #임의의 숫자를 몇개 만들꺼냐
 np.random.shuffle(index) #임의의 숫자를 만든 뒤 뒤 섞는 행위
 
 print(index)
+
+print(input_arr[[1, 3]])
+
+train_input = input_arr[index[:35]] #0에서 35개
+train_target = target_arr[index[:35]] #0에서 35개
+
+print(input_arr[13], train_input[0])
+
+test_input = input_arr[index[35:]] #35번째부터
+test_target = target_arr[index[35:]] #35번째부터
+
+
+import matplotlib.pyplot as plt
+plt.scatter(train_input[:,0], train_input[:,1]) # 그려야 되는 데이터의 열 데이터 전체
+plt.scatter(test_input[:,0], test_input[:,1]) # 그려야 되는 데이터의 열 데이터 전체
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+
+kn.fit(train_input, train_target)
+kn.score(test_input, test_target)
