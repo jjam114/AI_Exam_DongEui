@@ -31,3 +31,66 @@ knr = KNeighborsRegressor(n_neighbors=3)
 knr.fit(train_input, train_target)
 
 print(knr.predict([[50]]))
+
+
+
+import matplotlib.pyplot as plt
+
+distances, indexes = knr.kneighbors([[50]])
+
+plt.scatter(train_input, train_target)
+plt.scatter(train_input[indexes], train_target[indexes], marker='D')
+plt.scatter(50, 1033, marker='^')
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+
+print(np.mean(train_target[indexes]))
+
+
+from sklearn.linear_model import LinearRegression
+lr = LinearRegression()
+lr.fit(train_input, train_target)
+
+print(lr.predict([[50]]))
+
+print(lr.coef_, lr.intercept_)
+
+
+plt.scatter(train_input, train_target)
+
+plt.plot([15, 50], [15 * lr.coef_ + lr.intercept_ , 50 * lr.coef_ + lr.intercept_])
+
+plt.scatter(50, 1248.1, marker='^')
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+
+print(lr.score(train_input, train_target))
+print(lr.score(test_input, test_target))
+
+
+#y = ax^2 + bx + c
+
+train_poly = np.column_stack((train_input ** 2, train_input))
+test_poly = np.column_stack((test_input ** 2, test_input))
+
+print(train_poly.shape, test_poly.shape)
+
+lr = LinearRegression()
+lr.fit(train_poly, train_target)
+print(lr.predict([[50**2, 50]]))
+
+print(lr.coef_, lr.intercept_)
+
+
+point = np.arange(15, 50)
+
+plt.scatter(train_input, train_target)
+
+plt.plot(point, 1.01 * point ** 2 - 21.6 * point + 116.05)
+
+plt.scatter(50, 1574, marker='^')
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
